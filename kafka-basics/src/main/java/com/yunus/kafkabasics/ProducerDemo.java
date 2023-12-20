@@ -14,17 +14,19 @@ public class ProducerDemo {
     public static void main(String[] args) {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers","127.0.0.1:9092");
-
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer",StringSerializer.class.getName());
 
+        logger.info("properties created");
+
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
-
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("first_topic","hello world");
-
+        logger.info("producer created");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java","hello world");
+        logger.info("producerRecord created");
         producer.send(producerRecord);
-
+        logger.info("producerRecord sent to the topic");
         producer.flush();
         producer.close();
+        logger.info("producer closed");
     }
 }
