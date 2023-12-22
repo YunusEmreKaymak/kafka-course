@@ -7,8 +7,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 public class WikimediaChangeHandler implements EventHandler {
-    private  KafkaProducer<String, String> producer;
-    private String topic;
+    private final KafkaProducer<String, String> producer;
+    private final String topic;
 
     public WikimediaChangeHandler(KafkaProducer<String, String> producer, String topic) {
         this.producer = producer;
@@ -16,23 +16,23 @@ public class WikimediaChangeHandler implements EventHandler {
     }
 
     @Override
-    public void onOpen() throws Exception {
+    public void onOpen()  {
 
     }
 
     @Override
-    public void onClosed() throws Exception {
+    public void onClosed() {
         producer.close();
     }
 
     @Override
-    public void onMessage(String event, MessageEvent messageEvent) throws Exception {
+    public void onMessage(String event, MessageEvent messageEvent)  {
         System.out.println(messageEvent.getData());
         producer.send(new ProducerRecord<>(topic, messageEvent.getData()));
     }
 
     @Override
-    public void onComment(String comment) throws Exception {
+    public void onComment(String comment){
 
     }
 
