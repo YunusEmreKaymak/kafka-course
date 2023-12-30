@@ -27,7 +27,7 @@ public class WikimediaChangeHandler implements EventHandler {
 
     @Override
     public void onMessage(String event, MessageEvent messageEvent)  {
-        System.out.println(messageEvent.getData());
+        logger.info(messageEvent.getData());
         producer.send(new ProducerRecord<>(topic, messageEvent.getData()));
     }
 
@@ -38,6 +38,6 @@ public class WikimediaChangeHandler implements EventHandler {
 
     @Override
     public void onError(Throwable t) {
-        System.out.println("ERROR: " + t);
+        logger.info("ERROR: " + t);
     }
 }
